@@ -2,6 +2,14 @@
 
 Dictionary utilities for the SciTeX ecosystem.
 
+## Problem and Solution
+
+
+| # | Problem | Solution |
+|---|---------|----------|
+| 1 | **YAML config access ergonomics** -- `CONFIG["MODEL"]["hidden_size"]` vs `CONFIG.MODEL.hidden_size` matters in a notebook | **`DotDict`** -- attribute-access `dict` subclass with recursive `.x.y.z`; works as a drop-in for the umpteen competing alternatives (addict, easydict, box, dotmap) |
+| 2 | **Merging configs silently overwrites** -- `{**a, **b}` on duplicate keys loses information | **`safe_merge`** -- duplicate keys raise; `flatten` turns nested dicts into dotted-key single-level for logging/CSV |
+
 ## Features
 
 - **DotDict** -- Dot-access dictionary with recursive nesting, JSON serialization, and full `dict` protocol

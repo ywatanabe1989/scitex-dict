@@ -1,5 +1,16 @@
 # scitex-dict
 
+<!-- scitex-badges:start -->
+[![PyPI](https://img.shields.io/pypi/v/scitex-dict.svg)](https://pypi.org/project/scitex-dict/)
+[![Python](https://img.shields.io/pypi/pyversions/scitex-dict.svg)](https://pypi.org/project/scitex-dict/)
+[![Tests](https://github.com/ywatanabe1989/scitex-dict/actions/workflows/test.yml/badge.svg)](https://github.com/ywatanabe1989/scitex-dict/actions/workflows/test.yml)
+[![Install Test](https://github.com/ywatanabe1989/scitex-dict/actions/workflows/install-test.yml/badge.svg)](https://github.com/ywatanabe1989/scitex-dict/actions/workflows/install-test.yml)
+[![Coverage](https://codecov.io/gh/ywatanabe1989/scitex-dict/graph/badge.svg)](https://codecov.io/gh/ywatanabe1989/scitex-dict)
+[![Docs](https://readthedocs.org/projects/scitex-dict/badge/?version=latest)](https://scitex-dict.readthedocs.io/en/latest/)
+[![License: AGPL v3](https://img.shields.io/badge/license-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+<!-- scitex-badges:end -->
+
+
 Dictionary utilities for the SciTeX ecosystem.
 
 > **Interfaces:** Python ⭐⭐⭐ (primary) · CLI — · MCP — · Skills ⭐ · Hook — · HTTP —

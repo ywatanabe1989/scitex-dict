@@ -2,6 +2,8 @@
 
 """Dictionary utilities (DotDict, safe_merge) for the SciTeX ecosystem."""
 
+from __future__ import annotations
+
 try:
     from importlib.metadata import version as _v, PackageNotFoundError
     try:
@@ -21,6 +23,7 @@ from ._safe_merge import safe_merge
 from ._to_str import to_str
 
 __all__ = [
+    "__version__",
     "DotDict",
     "listed_dict",
     "pop_keys",

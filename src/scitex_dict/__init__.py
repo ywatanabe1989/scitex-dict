@@ -2,6 +2,16 @@
 
 """Dictionary utilities (DotDict, safe_merge) for the SciTeX ecosystem."""
 
+try:
+    from importlib.metadata import version as _v, PackageNotFoundError
+    try:
+        __version__ = _v("scitex-dict")
+    except PackageNotFoundError:
+        __version__ = "0.0.0+local"
+    del _v, PackageNotFoundError
+except ImportError:  # pragma: no cover — only on ancient Pythons
+    __version__ = "0.0.0+local"
+
 from ._DotDict import DotDict
 from ._flatten import flatten
 from ._listed_dict import listed_dict

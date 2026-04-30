@@ -1,3 +1,9 @@
+---
+name: python-api
+description: scitex-dict — Python API — see file body for details.
+tags: [scitex-dict, scitex-package]
+---
+
 <!-- 02_python-api.md -->
 
 # scitex-dict — Python API

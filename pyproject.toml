@@ -47,6 +47,7 @@ all = [
 Homepage = "https://github.com/ywatanabe1989/scitex-dict"
 Repository = "https://github.com/ywatanabe1989/scitex-dict"
 Issues = "https://github.com/ywatanabe1989/scitex-dict/issues"
+Documentation = "https://scitex-dict.readthedocs.io"
 
 [project.entry-points."scitex_dev.docs"]
 scitex-dict = "scitex_dict"

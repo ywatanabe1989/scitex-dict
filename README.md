@@ -79,7 +79,9 @@ to_str({"a": 1, "b": 2})
 
 ## Part of SciTeX
 
-`scitex-dict` is part of [**SciTeX**](https://scitex.ai).
+`scitex-dict` is part of [**SciTeX**](https://scitex.ai). Install via
+the umbrella with `pip install scitex[dict]` to use as
+`scitex.dict` (Python).
 
 >Four Freedoms for Research
 >

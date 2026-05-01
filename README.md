@@ -50,7 +50,7 @@ merged = safe_merge({"a": 1}, {"b": 2})
 
 ## 1 Interfaces
 
-<details>
+<details open>
 <summary><strong>Python API</strong></summary>
 
 <br>

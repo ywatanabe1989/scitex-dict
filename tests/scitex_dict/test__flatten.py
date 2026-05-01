@@ -1,36 +1,47 @@
-# Add your tests here
+#!/usr/bin/env python3
+"""Tests for scitex_dict._flatten.flatten."""
+
+import pytest
+
+from scitex_dict._flatten import flatten
+
+
+class TestFlatten:
+    def test_flat_dict_unchanged(self):
+        assert flatten({"a": 1, "b": 2}) == {"a": 1, "b": 2}
+
+    def test_nested_dict_uses_underscore_sep(self):
+        assert flatten({"a": {"b": 1}}) == {"a_b": 1}
+
+    def test_deeply_nested(self):
+        assert flatten({"a": {"b": {"c": 42}}}) == {"a_b_c": 42}
+
+    def test_custom_separator(self):
+        assert flatten({"a": {"b": 1}}, sep=".") == {"a.b": 1}
+
+    def test_list_values_become_indexed(self):
+        out = flatten({"items": [10, 20, 30]})
+        assert out == {"items_0": 10, "items_1": 20, "items_2": 30}
+
+    def test_tuple_values_become_indexed(self):
+        out = flatten({"x": (4, 5)})
+        assert out == {"x_0": 4, "x_1": 5}
+
+    def test_mixed_nested_and_list(self):
+        out = flatten({"meta": {"tags": ["a", "b"]}})
+        assert out == {"meta_tags_0": "a", "meta_tags_1": "b"}
+
+    def test_parent_key_prefix(self):
+        out = flatten({"x": 1}, parent_key="root")
+        assert out == {"root_x": 1}
+
+    def test_empty_dict_returns_empty(self):
+        assert flatten({}) == {}
+
 
 if __name__ == "__main__":
     import os
 
-    import pytest
+    pytest.main([os.path.abspath(__file__), "-v"])
 
-    pytest.main([os.path.abspath(__file__)])
-
-# --------------------------------------------------------------------------------
-# Start of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/dict/_flatten.py
-# --------------------------------------------------------------------------------
-# #!/usr/bin/env python3
-# # -*- coding: utf-8 -*-
-# # Timestamp: "2025-11-10 22:38:40 (ywatanabe)"
-#
-#
-# def flatten(nested_dict, parent_key="", sep="_"):
-#     items = []
-#     for key, value in nested_dict.items():
-#         new_key = f"{parent_key}{sep}{key}" if parent_key else key
-#         if isinstance(value, dict):
-#             items.extend(flatten(value, new_key, sep=sep).items())
-#         elif isinstance(value, (list, tuple)):
-#             for idx, item in enumerate(value):
-#                 items.append((f"{new_key}_{idx}", item))
-#         else:
-#             items.append((new_key, value))
-#     return dict(items)
-#
-#
-# # EOF
-
-# --------------------------------------------------------------------------------
-# End of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/dict/_flatten.py
-# --------------------------------------------------------------------------------
+# EOF

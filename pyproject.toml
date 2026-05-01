@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "scitex-dict"
-version = "0.1.3"
+version = "0.1.4"
 description = "Dictionary utilities (DotDict, safe_merge) for the SciTeX ecosystem"
 readme = "README.md"
 license = "AGPL-3.0-only"

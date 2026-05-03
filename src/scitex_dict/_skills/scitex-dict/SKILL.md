@@ -1,16 +1,17 @@
 ---
 name: scitex-dict
-description: Dictionary utilities for scientific Python — attribute-access dicts, conflict-aware merging, nested flattening, and pretty rendering. Public API (7 symbols) — `DotDict` (attribute-access `dict` subclass with recursive `.x.y.z` lookup for YAML configs), `safe_merge(*dicts)` (merge with duplicate-key error instead of silent overwrite), `flatten(nested, sep=".")` (nested dict → single-level with dotted keys), `listed_dict(keys=None)` (`defaultdict(list)` factory), `pop_keys(d, keys)` (pop multiple keys at once, returning remaining dict), `replace(d, old, new)` (recursive string-substitution in keys and values), `to_str(d, delimiter=", ")` (human-readable rendering). No CLI, no MCP tools. Drop-in replacement for `SimpleNamespace`/`types.SimpleNamespace`, `addict.Dict`, `easydict.EasyDict`, `box.Box`, `dotmap.DotMap`, `collections.defaultdict(list)`, hand-rolled `{**a, **b}` merges that silently overwrite, and bespoke recursive-flatten/pretty-print helpers. Use whenever the user asks to "access config values with dot notation", "convert YAML into an attribute-accessible object", "merge two dicts but raise on conflict", "flatten a nested dict for logging/CSV", "pop several keys from a dict", "recursively substitute placeholder strings in a config", "pretty-print a dict", "use DotDict", or mentions scitex.dict, addict, easydict, dotted-key config.
-user-invocable: false
+description: |
+  [WHAT] Dictionary utilities — `DotDict` (attribute-access dict), `safe_merge` (raise-on-conflict), `flatten`, `listed_dict`, `pop_keys`, `replace`, `to_str`.
+  [WHEN] Accessing config values with dot notation, merging dicts safely, flattening nested dicts for logging/CSV, popping multiple keys, recursive string substitution, or pretty-printing.
+  [HOW] `from scitex_dict import DotDict, safe_merge, flatten, listed_dict, pop_keys, replace, to_str` — wrap a YAML/dict and use functional helpers.
+tags: [scitex-dict]
 primary_interface: python
 interfaces:
   python: 3
   cli: 0
   mcp: 0
   skills: 1
-  hook: 0
   http: 0
-tags: [scitex-dict, scitex-package]
 ---
 
 # scitex-dict

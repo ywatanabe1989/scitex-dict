@@ -1,7 +1,8 @@
 ---
-name: python-api
-description: scitex-dict — Python API — see file body for details.
-tags: [scitex-dict, scitex-package]
+description: |
+  [TOPIC] Python API
+  [DETAILS] All 7 public symbols (DotDict, safe_merge, flatten, listed_dict, pop_keys, replace, to_str) with signatures.
+tags: [scitex-dict-python-api]
 ---
 
 <!-- 02_python-api.md -->

@@ -1,7 +1,8 @@
 ---
-name: quick-start
-description: scitex-dict — Quick Start — see file body for details.
-tags: [scitex-dict, scitex-package]
+description: |
+  [TOPIC] Quick Start
+  [DETAILS] Install, import, and common DotDict / safe_merge / flatten patterns.
+tags: [scitex-dict-quick-start]
 ---
 
 <!-- 01_quick-start.md -->

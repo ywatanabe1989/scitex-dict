@@ -39,15 +39,16 @@
 pip install scitex-dict
 ```
 
-## Quick Start
+## Architecture
 
-```python
-from scitex_dict import DotDict, safe_merge
-
-cfg = DotDict({"model": {"lr": 0.001, "epochs": 100}})
-print(cfg.model.lr)              # 0.001
-
-merged = safe_merge({"a": 1}, {"b": 2})
+```
+scitex-dict/
+├── src/scitex_dict/
+│   ├── _DotDict.py        # attribute-access dict subclass
+│   ├── _safe_merge.py     # raises on duplicate keys
+│   ├── _flatten.py        # nested → dotted-key
+│   └── _listed_dict.py    # default-list dict factory
+└── tests/
 ```
 
 ## 1 Interfaces
@@ -78,6 +79,28 @@ to_str({"a": 1, "b": 2})
 ```
 
 </details>
+
+## Demo
+
+```mermaid
+flowchart LR
+    YAML[YAML config] --> DD[DotDict]
+    DD -->|cfg.model.lr| Code[Your code]
+    A[dict A] --> SM[safe_merge]
+    B[dict B] --> SM
+    SM --> Merged[merged dict]
+```
+
+## Quick Start
+
+```python
+from scitex_dict import DotDict, safe_merge
+
+cfg = DotDict({"model": {"lr": 0.001, "epochs": 100}})
+print(cfg.model.lr)              # 0.001
+
+merged = safe_merge({"a": 1}, {"b": 2})
+```
 
 ## Part of SciTeX
 

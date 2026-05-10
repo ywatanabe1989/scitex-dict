@@ -9,7 +9,7 @@
 <p align="center"><b>Dictionary utilities — DotDict, safe_merge, flatten, listed_dict, replace.</b></p>
 
 <p align="center">
-  <a href="https://scitex-dict.readthedocs.io/">Full Documentation</a> · <code>pip install scitex-dict</code>
+  <a href="https://scitex-dict.readthedocs.io/">Full Documentation</a> · <code>uv pip install scitex-dict[all]</code>
 </p>
 
 <!-- scitex-badges:start -->

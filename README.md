@@ -17,7 +17,6 @@
   <a href="https://pypi.org/project/scitex-dict/"><img src="https://img.shields.io/pypi/v/scitex-dict.svg" alt="PyPI"></a>
   <a href="https://pypi.org/project/scitex-dict/"><img src="https://img.shields.io/pypi/pyversions/scitex-dict.svg" alt="Python"></a>
   <a href="https://github.com/ywatanabe1989/scitex-dict/actions/workflows/test.yml"><img src="https://github.com/ywatanabe1989/scitex-dict/actions/workflows/test.yml/badge.svg" alt="Tests"></a>
-  <a href="https://github.com/ywatanabe1989/scitex-dict/actions/workflows/install-test.yml"><img src="https://github.com/ywatanabe1989/scitex-dict/actions/workflows/install-test.yml/badge.svg" alt="Install Test"></a>
   <a href="https://codecov.io/gh/ywatanabe1989/scitex-dict"><img src="https://codecov.io/gh/ywatanabe1989/scitex-dict/graph/badge.svg" alt="Coverage"></a>
   <a href="https://scitex-dict.readthedocs.io/en/latest/"><img src="https://readthedocs.org/projects/scitex-dict/badge/?version=latest" alt="Docs"></a>
   <a href="https://www.gnu.org/licenses/agpl-3.0"><img src="https://img.shields.io/badge/license-AGPL_v3-blue.svg" alt="License: AGPL v3"></a>

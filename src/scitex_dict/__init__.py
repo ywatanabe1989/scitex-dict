@@ -4,15 +4,18 @@
 
 from __future__ import annotations
 
+# `importlib.metadata` is stdlib on every supported Python (>=3.10),
+# so the only branch we still need is the editable / not-installed
+# fallback that surfaces a clearly-fake version. No optional-import
+# helper is needed here (this is stdlib, not a `[all]` dep).
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _v
+
 try:
-    from importlib.metadata import version as _v, PackageNotFoundError
-    try:
-        __version__ = _v("scitex-dict")
-    except PackageNotFoundError:
-        __version__ = "0.0.0+local"
-    del _v, PackageNotFoundError
-except ImportError:  # pragma: no cover — only on ancient Pythons
+    __version__ = _v("scitex-dict")
+except PackageNotFoundError:
     __version__ = "0.0.0+local"
+del _v, PackageNotFoundError
 
 from ._DotDict import DotDict
 from ._flatten import flatten

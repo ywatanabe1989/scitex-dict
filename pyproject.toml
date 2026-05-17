@@ -23,24 +23,49 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 
-dependencies = []
+# Three-tier dependency policy
+# (see scitex/general/05_development_11_dependency-tiers.md).
+#
+# [project.dependencies]                     — hard runtime deps required
+#                                              by every public surface
+#                                              (Python API / CLI / MCP /
+#                                              Skills) on a bare
+#                                              `pip install scitex-dict`.
+# [project.optional-dependencies.all]        — graceful-degradation
+#                                              features (`pip install
+#                                              scitex-dict[all]`).
+# [project.optional-dependencies.dev]        — maintainer-only tools
+#                                              (`pip install
+#                                              scitex-dict[dev]`).
+#
+# scitex-dict is pure-Python (stdlib only) and ships no CLI or MCP
+# server (cli=0, mcp=0 in SKILL.md). The only ecosystem-mandated hard
+# dep is `scitex-dev`, which registers the `scitex_dev.skills` and
+# `scitex_dev.docs` entry-points that this package publishes — without
+# it the Skills surface is non-functional after a bare install.
+dependencies = [
+    "scitex-dev>=0.11.7",
+]
 
 [project.optional-dependencies]
+# No graceful-degradation features — package is pure-stdlib. The key
+# is kept empty for ecosystem-policy symmetry (the audit expects
+# exactly default + [all] + [dev]).
+all = []
+
 dev = [
-    "scitex-dev>=0.11.7",
     "pytest>=7.0",
     "pytest-cov",
+    "pytest-xdist",
     "ruff",
-]
-docs = [
+    # Sphinx toolchain (was [docs]; collapsed into [dev] because docs
+    # are built by maintainers, not consumers — no runtime surface
+    # depends on them).
     "sphinx>=7.0",
     "sphinx-rtd-theme>=2.0",
     "myst-parser>=2.0",
     "sphinx-copybutton>=0.5",
     "sphinx-autodoc-typehints>=1.25",
-]
-all = [
-    "scitex-dict[dev,docs]",
 ]
 
 [project.urls]

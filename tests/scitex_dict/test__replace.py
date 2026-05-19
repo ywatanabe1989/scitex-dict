@@ -6,25 +6,76 @@ import pytest
 from scitex_dict._replace import replace
 
 
-class TestReplace:
-    def test_single_substitution(self):
-        assert replace("hello world", {"hello": "hi"}) == "hi world"
+def test_replace_single_key_substitutes_in_string():
+    # Arrange
+    text = "hello world"
+    mapping = {"hello": "hi"}
 
-    def test_multiple_substitutions(self):
-        assert replace("a b c", {"a": "1", "c": "3"}) == "1 b 3"
+    # Act
+    out = replace(text, mapping)
 
-    def test_empty_dict_returns_unchanged(self):
-        assert replace("hello", {}) == "hello"
+    # Assert
+    assert out == "hi world"
 
-    def test_no_match_returns_unchanged(self):
-        assert replace("hello", {"x": "y"}) == "hello"
 
-    def test_substitutions_chain_predictably(self):
-        out = replace("a", {"a": "b", "b": "c"})
-        assert out == "c"
+def test_replace_multiple_keys_substitutes_each_independently():
+    # Arrange
+    text = "a b c"
+    mapping = {"a": "1", "c": "3"}
 
-    def test_replaces_all_occurrences(self):
-        assert replace("aaa", {"a": "b"}) == "bbb"
+    # Act
+    out = replace(text, mapping)
+
+    # Assert
+    assert out == "1 b 3"
+
+
+def test_replace_empty_mapping_returns_input_unchanged():
+    # Arrange
+    text = "hello"
+    mapping = {}
+
+    # Act
+    out = replace(text, mapping)
+
+    # Assert
+    assert out == "hello"
+
+
+def test_replace_no_matching_keys_returns_input_unchanged():
+    # Arrange
+    text = "hello"
+    mapping = {"x": "y"}
+
+    # Act
+    out = replace(text, mapping)
+
+    # Assert
+    assert out == "hello"
+
+
+def test_replace_chained_substitutions_apply_sequentially():
+    # Arrange
+    text = "a"
+    mapping = {"a": "b", "b": "c"}
+
+    # Act
+    out = replace(text, mapping)
+
+    # Assert
+    assert out == "c"
+
+
+def test_replace_repeated_occurrences_are_all_replaced():
+    # Arrange
+    text = "aaa"
+    mapping = {"a": "b"}
+
+    # Act
+    out = replace(text, mapping)
+
+    # Assert
+    assert out == "bbb"
 
 
 if __name__ == "__main__":

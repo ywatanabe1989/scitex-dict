@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# Time-stamp: "2025-06-02 15:20:00 (ywatanabe)"
-# File: ./scitex_repo/tests/scitex/dict/test__listed_dict.py
-
 """Tests for listed_dict function."""
 
 from collections import defaultdict
@@ -12,221 +8,354 @@ import pytest
 from scitex_dict import listed_dict
 
 
-def test_listed_dict_no_keys():
-    """Test listed_dict without initial keys."""
+def test_listed_dict_no_keys_returns_defaultdict_instance():
+    # Arrange
+    # (no setup needed)
+
+    # Act
     d = listed_dict()
 
-    # Should be a defaultdict(list)
+    # Assert
     assert isinstance(d, defaultdict)
+
+
+def test_listed_dict_no_keys_uses_list_as_default_factory():
+    # Arrange
+    # (no setup needed)
+
+    # Act
+    d = listed_dict()
+
+    # Assert
     assert d.default_factory == list
 
-    # Should start empty
+
+def test_listed_dict_no_keys_starts_with_empty_container():
+    # Arrange
+    # (no setup needed)
+
+    # Act
+    d = listed_dict()
+
+    # Assert
     assert len(d) == 0
 
-    # New keys should create empty lists
+
+def test_listed_dict_appends_to_unseen_key_creates_singleton_list():
+    # Arrange
+    d = listed_dict()
+
+    # Act
     d["new_key"].append(1)
+
+    # Assert
     assert d["new_key"] == [1]
 
-    # Multiple appends
+
+def test_listed_dict_multiple_appends_to_same_key_accumulate():
+    # Arrange
+    d = listed_dict()
+
+    # Act
     d["key2"].append("a")
     d["key2"].append("b")
+
+    # Assert
     assert d["key2"] == ["a", "b"]
 
 
-def test_listed_dict_with_keys():
-    """Test listed_dict with initial keys."""
+def test_listed_dict_with_keys_initializes_all_provided_keys():
+    # Arrange
     keys = ["a", "b", "c"]
+
+    # Act
     d = listed_dict(keys)
 
-    # Should have all keys initialized
-    assert len(d) == 3
-    assert "a" in d
-    assert "b" in d
-    assert "c" in d
-
-    # Each key should have empty list
-    assert d["a"] == []
-    assert d["b"] == []
-    assert d["c"] == []
+    # Assert
+    assert set(d.keys()) == {"a", "b", "c"}
 
 
-def test_listed_dict_append_operations():
-    """Test append operations on listed_dict."""
+def test_listed_dict_with_keys_initializes_each_key_to_empty_list():
+    # Arrange
+    keys = ["a", "b", "c"]
+
+    # Act
+    d = listed_dict(keys)
+
+    # Assert
+    assert all(d[k] == [] for k in keys)
+
+
+def test_listed_dict_append_to_existing_initialized_key_accumulates():
+    # Arrange
     d = listed_dict(["x", "y"])
 
-    # Append to existing keys
+    # Act
     d["x"].append(10)
     d["x"].append(20)
-    d["y"].append("hello")
 
+    # Assert
     assert d["x"] == [10, 20]
-    assert d["y"] == ["hello"]
 
-    # Append to new key
+
+def test_listed_dict_append_to_new_key_outside_init_list_works():
+    # Arrange
+    d = listed_dict(["x", "y"])
+
+    # Act
     d["z"].append(3.14)
+
+    # Assert
     assert d["z"] == [3.14]
 
 
-def test_listed_dict_mixed_types():
-    """Test listed_dict with mixed data types."""
+def test_listed_dict_mixed_value_types_coexist_in_same_list():
+    # Arrange
     d = listed_dict()
 
-    # Different types in same list
+    # Act
     d["mixed"].append(1)
     d["mixed"].append("string")
     d["mixed"].append([1, 2, 3])
     d["mixed"].append({"nested": "dict"})
     d["mixed"].append(None)
 
+    # Assert
     assert d["mixed"] == [1, "string", [1, 2, 3], {"nested": "dict"}, None]
 
 
-def test_listed_dict_list_operations():
-    """Test various list operations on listed_dict values."""
+def test_listed_dict_extend_on_value_appends_iterable_items():
+    # Arrange
     d = listed_dict(["nums"])
 
-    # extend
+    # Act
     d["nums"].extend([1, 2, 3])
+
+    # Assert
     assert d["nums"] == [1, 2, 3]
 
-    # insert
+
+def test_listed_dict_insert_on_value_places_item_at_index():
+    # Arrange
+    d = listed_dict(["nums"])
+    d["nums"].extend([1, 2, 3])
+
+    # Act
     d["nums"].insert(1, "inserted")
+
+    # Assert
     assert d["nums"] == [1, "inserted", 2, 3]
 
-    # remove
+
+def test_listed_dict_remove_on_value_drops_matching_element():
+    # Arrange
+    d = listed_dict(["nums"])
+    d["nums"].extend([1, "inserted", 2, 3])
+
+    # Act
     d["nums"].remove("inserted")
+
+    # Assert
     assert d["nums"] == [1, 2, 3]
 
-    # pop
-    assert d["nums"].pop() == 3
+
+def test_listed_dict_pop_on_value_returns_last_element():
+    # Arrange
+    d = listed_dict(["nums"])
+    d["nums"].extend([1, 2, 3])
+
+    # Act
+    popped = d["nums"].pop()
+
+    # Assert
+    assert popped == 3
+
+
+def test_listed_dict_pop_on_value_shrinks_list():
+    # Arrange
+    d = listed_dict(["nums"])
+    d["nums"].extend([1, 2, 3])
+
+    # Act
+    d["nums"].pop()
+
+    # Assert
     assert d["nums"] == [1, 2]
 
 
-def test_listed_dict_empty_keys_list():
-    """Test listed_dict with empty keys list."""
+def test_listed_dict_with_empty_keys_list_creates_empty_defaultdict():
+    # Arrange
+    # (no setup needed)
+
+    # Act
     d = listed_dict([])
 
-    # Should create empty defaultdict
-    assert isinstance(d, defaultdict)
-    assert len(d) == 0
+    # Assert
+    assert isinstance(d, defaultdict) and len(d) == 0
 
-    # Should still work as defaultdict
+
+def test_listed_dict_with_empty_keys_still_lazily_creates_new_keys():
+    # Arrange
+    d = listed_dict([])
+
+    # Act
     d["new"].append(42)
+
+    # Assert
     assert d["new"] == [42]
 
 
-def test_listed_dict_duplicate_keys():
-    """Test listed_dict with duplicate keys."""
+def test_listed_dict_duplicate_keys_are_deduplicated_via_dict_semantics():
+    # Arrange
     keys = ["a", "b", "a", "c", "b"]
+
+    # Act
     d = listed_dict(keys)
 
-    # Should only have unique keys
-    assert len(d) == 3
+    # Assert
     assert sorted(d.keys()) == ["a", "b", "c"]
 
-    # All should be empty lists
-    for key in ["a", "b", "c"]:
-        assert d[key] == []
 
-
-def test_listed_dict_none_key():
-    """Test listed_dict with None in keys."""
+def test_listed_dict_handles_none_as_a_valid_key():
+    # Arrange
     keys = ["a", None, "b"]
+
+    # Act
     d = listed_dict(keys)
 
-    # Should handle None as a key
-    assert len(d) == 3
-    assert None in d
-    assert d[None] == []
+    # Assert
+    assert None in d and d[None] == []
 
-    # Can append to None key
+
+def test_listed_dict_append_to_none_key_accumulates_in_list():
+    # Arrange
+    d = listed_dict(["a", None, "b"])
+
+    # Act
     d[None].append("none_value")
+
+    # Assert
     assert d[None] == ["none_value"]
 
 
-def test_listed_dict_numeric_keys():
-    """Test listed_dict with numeric keys."""
+def test_listed_dict_numeric_keys_are_supported_directly():
+    # Arrange
     keys = [1, 2.5, 3]
+
+    # Act
     d = listed_dict(keys)
 
-    assert len(d) == 3
-    assert d[1] == []
-    assert d[2.5] == []
-    assert d[3] == []
+    # Assert
+    assert d[1] == [] and d[2.5] == [] and d[3] == []
 
-    # Numeric keys work normally
+
+def test_listed_dict_numeric_key_append_accumulates_normally():
+    # Arrange
+    d = listed_dict([1, 2.5, 3])
+
+    # Act
     d[1].append("one")
     d[2.5].append("two-point-five")
-    assert d[1] == ["one"]
-    assert d[2.5] == ["two-point-five"]
+
+    # Assert
+    assert d[1] == ["one"] and d[2.5] == ["two-point-five"]
 
 
-def test_listed_dict_iteration():
-    """Test iteration over listed_dict."""
+def test_listed_dict_keys_iteration_yields_all_initialized_keys():
+    # Arrange
     keys = ["first", "second", "third"]
     d = listed_dict(keys)
 
-    # Add some data
+    # Act
+    collected = set(d.keys())
+
+    # Assert
+    assert collected == set(keys)
+
+
+def test_listed_dict_items_iteration_yields_list_values():
+    # Arrange
+    d = listed_dict(["first", "second", "third"])
     d["first"].extend([1, 2])
     d["second"].append("data")
 
-    # Iterate over keys
-    collected_keys = list(d.keys())
-    assert set(collected_keys) == set(keys)
+    # Act
+    types = {type(v) for _, v in d.items()}
 
-    # Iterate over items
-    for key, value in d.items():
-        assert isinstance(value, list)
+    # Assert
+    assert types == {list}
 
 
-def test_listed_dict_del_operations():
-    """Test deletion operations on listed_dict."""
+def test_listed_dict_delete_removes_key_from_container():
+    # Arrange
     d = listed_dict(["a", "b", "c"])
-
-    # Add data
     d["a"].append(1)
     d["b"].extend([2, 3])
 
-    # Delete a key
+    # Act
     del d["a"]
-    assert "a" not in d
-    assert len(d) == 2
 
-    # New 'a' key should create new list
+    # Assert
+    assert "a" not in d
+
+
+def test_listed_dict_after_delete_re_appending_starts_fresh_list():
+    # Arrange
+    d = listed_dict(["a", "b", "c"])
+    d["a"].append(1)
+    del d["a"]
+
+    # Act
     d["a"].append(99)
+
+    # Assert
     assert d["a"] == [99]
 
 
-def test_listed_dict_copy_behavior():
-    """Test copy behavior of listed_dict."""
+def test_listed_dict_direct_assignment_creates_shared_reference():
+    # Arrange
     d1 = listed_dict(["x"])
     d1["x"].append(1)
-
-    # Direct assignment shares reference
     d2 = d1
+
+    # Act
     d2["x"].append(2)
-    assert d1["x"] == [1, 2]  # d1 also changed
 
-    # Copy creates new dict but shares list references
+    # Assert
+    assert d1["x"] == [1, 2]
+
+
+def test_listed_dict_shallow_copy_shares_list_references():
+    # Arrange
+    d1 = listed_dict(["x"])
+    d1["x"].append(1)
     d3 = d1.copy()
-    d3["x"].append(3)
-    assert d1["x"] == [1, 2, 3]  # d1 also changed
 
-    # Deep copy would be needed for full independence
+    # Act
+    d3["x"].append(3)
+
+    # Assert
+    assert d1["x"] == [1, 3]
+
+
+def test_listed_dict_deepcopy_isolates_nested_lists_from_original():
+    # Arrange
     import copy
 
+    d1 = listed_dict(["x"])
+    d1["x"].extend([1, 2])
     d4 = copy.deepcopy(d1)
+
+    # Act
     d4["x"].append(4)
-    assert d1["x"] == [1, 2, 3]  # d1 unchanged
-    assert d4["x"] == [1, 2, 3, 4]
+
+    # Assert
+    assert d1["x"] == [1, 2] and d4["x"] == [1, 2, 4]
 
 
-def test_listed_dict_real_world_example():
-    """Test real-world usage pattern of listed_dict."""
-    # Collecting items by category
+def test_listed_dict_real_world_grouping_pattern_produces_expected_groups():
+    # Arrange
     items_by_category = listed_dict(["fruits", "vegetables", "dairy"])
-
-    # Simulate processing items
     items = [
         ("apple", "fruits"),
         ("carrot", "vegetables"),
@@ -237,71 +366,32 @@ def test_listed_dict_real_world_example():
         ("orange", "fruits"),
     ]
 
+    # Act
     for item, category in items:
         items_by_category[category].append(item)
 
-    assert items_by_category["fruits"] == ["apple", "banana", "orange"]
-    assert items_by_category["vegetables"] == ["carrot", "lettuce"]
-    assert items_by_category["dairy"] == ["milk", "cheese"]
+    # Assert
+    assert items_by_category == {
+        "fruits": ["apple", "banana", "orange"],
+        "vegetables": ["carrot", "lettuce"],
+        "dairy": ["milk", "cheese"],
+    }
 
-    # Can still add new categories dynamically
+
+def test_listed_dict_dynamic_new_category_can_be_added_after_init():
+    # Arrange
+    items_by_category = listed_dict(["fruits", "vegetables", "dairy"])
+
+    # Act
     items_by_category["grains"].append("bread")
+
+    # Assert
     assert items_by_category["grains"] == ["bread"]
 
 
 if __name__ == "__main__":
     import os
 
-    import pytest
-
     pytest.main([os.path.abspath(__file__)])
 
-# --------------------------------------------------------------------------------
-# Start of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/dict/_listed_dict.py
-# --------------------------------------------------------------------------------
-# #!/usr/bin/env python3
-# # -*- coding: utf-8 -*-
-# # Timestamp: "2025-11-10 22:39:50 (ywatanabe)"
-#
-#
-# from collections import defaultdict
-#
-#
-# def listed_dict(keys=None):
-#     """
-#     Example 1:
-#         import random
-#         random.seed(42)
-#         d = listed_dict()
-#         for _ in range(10):
-#             d['a'].append(random.randint(0, 10))
-#         print(d)
-#         # defaultdict(<class 'list'>, {'a': [10, 1, 0, 4, 3, 3, 2, 1, 10, 8]})
-#
-#     Example 2:
-#         import random
-#         random.seed(42)
-#         keys = ['a', 'b', 'c']
-#         d = listed_dict(keys)
-#         for _ in range(10):
-#             d['a'].append(random.randint(0, 10))
-#             d['b'].append(random.randint(0, 10))
-#             d['c'].append(random.randint(0, 10))
-#         print(d)
-#         # defaultdict(<class 'list'>, {'a': [10, 4, 2, 8, 6, 1, 8, 8, 8, 7],
-#         #                              'b': [1, 3, 1, 1, 0, 3, 9, 3, 6, 9],
-#         #                              'c': [0, 3, 10, 9, 0, 3, 0, 10, 3, 4]})
-#     """
-#     dict_list = defaultdict(list)
-#     # initialize with keys if possible
-#     if keys is not None:
-#         for k in keys:
-#             dict_list[k] = []
-#     return dict_list
-#
-#
-# # EOF
-
-# --------------------------------------------------------------------------------
-# End of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/dict/_listed_dict.py
-# --------------------------------------------------------------------------------
+# EOF

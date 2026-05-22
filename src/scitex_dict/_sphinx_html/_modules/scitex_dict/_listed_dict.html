@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>scitex_dict._listed_dict &mdash; SciTeX Dict v0.1.4</title>
+  <title>scitex_dict._listed_dict &mdash; SciTeX Dict v0.1.6</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=fd825880"></script>
+      <script src="../../_static/documentation_options.js?v=6e0256f3"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -129,29 +129,30 @@
 <div class="viewcode-block" id="listed_dict">
 <a class="viewcode-back" href="../../api/scitex_dict.html#scitex_dict.listed_dict">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">listed_dict</span><span class="p">(</span><span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Example 1:</span>
-<span class="sd">        import random</span>
-<span class="sd">        random.seed(42)</span>
-<span class="sd">        d = listed_dict()</span>
-<span class="sd">        for _ in range(10):</span>
-<span class="sd">            d[&#39;a&#39;].append(random.randint(0, 10))</span>
-<span class="sd">        print(d)</span>
-<span class="sd">        # defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;a&#39;: [10, 1, 0, 4, 3, 3, 2, 1, 10, 8]})</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a ``defaultdict(list)``, optionally pre-seeded with empty lists.</span>
 
-<span class="sd">    Example 2:</span>
-<span class="sd">        import random</span>
-<span class="sd">        random.seed(42)</span>
-<span class="sd">        keys = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span>
-<span class="sd">        d = listed_dict(keys)</span>
-<span class="sd">        for _ in range(10):</span>
-<span class="sd">            d[&#39;a&#39;].append(random.randint(0, 10))</span>
-<span class="sd">            d[&#39;b&#39;].append(random.randint(0, 10))</span>
-<span class="sd">            d[&#39;c&#39;].append(random.randint(0, 10))</span>
-<span class="sd">        print(d)</span>
-<span class="sd">        # defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;a&#39;: [10, 4, 2, 8, 6, 1, 8, 8, 8, 7],</span>
-<span class="sd">        #                              &#39;b&#39;: [1, 3, 1, 1, 0, 3, 9, 3, 6, 9],</span>
-<span class="sd">        #                              &#39;c&#39;: [0, 3, 10, 9, 0, 3, 0, 10, 3, 4]})</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import random</span>
+<span class="sd">    &gt;&gt;&gt; random.seed(42)</span>
+<span class="sd">    &gt;&gt;&gt; d = listed_dict()</span>
+<span class="sd">    &gt;&gt;&gt; for _ in range(10):</span>
+<span class="sd">    ...     d[&#39;a&#39;].append(random.randint(0, 10))</span>
+<span class="sd">    &gt;&gt;&gt; print(d)</span>
+<span class="sd">    defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;a&#39;: [10, 1, 0, 4, 3, 3, 2, 1, 10, 8]})</span>
+
+<span class="sd">    &gt;&gt;&gt; import random</span>
+<span class="sd">    &gt;&gt;&gt; random.seed(42)</span>
+<span class="sd">    &gt;&gt;&gt; keys = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; d = listed_dict(keys)</span>
+<span class="sd">    &gt;&gt;&gt; for _ in range(10):</span>
+<span class="sd">    ...     d[&#39;a&#39;].append(random.randint(0, 10))</span>
+<span class="sd">    ...     d[&#39;b&#39;].append(random.randint(0, 10))</span>
+<span class="sd">    ...     d[&#39;c&#39;].append(random.randint(0, 10))</span>
+<span class="sd">    &gt;&gt;&gt; print(d)  # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;a&#39;: [10, 4, 2, 8, 6, 1, 8, 8, 8, 7],</span>
+<span class="sd">                                 &#39;b&#39;: [1, 3, 1, 1, 0, 3, 9, 3, 6, 9],</span>
+<span class="sd">                                 &#39;c&#39;: [0, 3, 10, 9, 0, 3, 0, 10, 3, 4]})</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">dict_list</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
     <span class="c1"># initialize with keys if possible</span>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>scitex_dict &mdash; SciTeX Dict v0.1.4</title>
+  <title>scitex_dict &mdash; SciTeX Dict v0.1.6</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=fd825880"></script>
+      <script src="../_static/documentation_options.js?v=6e0256f3"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -318,33 +318,33 @@ Includes both standard methods/attributes and the keys stored in _data.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="scitex_dict.listed_dict">
 <span class="sig-prename descclassname"><span class="pre">scitex_dict.</span></span><span class="sig-name descname"><span class="pre">listed_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_dict/_listed_dict.html#listed_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_dict.listed_dict" title="Link to this definition"></a></dt>
-<dd><dl>
-<dt>Example 1:</dt><dd><p>import random
-random.seed(42)
-d = listed_dict()
-for _ in range(10):</p>
-<blockquote>
-<div><p>d[‘a’].append(random.randint(0, 10))</p>
-</div></blockquote>
-<p>print(d)
-# defaultdict(&lt;class ‘list’&gt;, {‘a’: [10, 1, 0, 4, 3, 3, 2, 1, 10, 8]})</p>
-</dd>
-<dt>Example 2:</dt><dd><p>import random
-random.seed(42)
-keys = [‘a’, ‘b’, ‘c’]
-d = listed_dict(keys)
-for _ in range(10):</p>
-<blockquote>
-<div><p>d[‘a’].append(random.randint(0, 10))
-d[‘b’].append(random.randint(0, 10))
-d[‘c’].append(random.randint(0, 10))</p>
-</div></blockquote>
-<p>print(d)
-# defaultdict(&lt;class ‘list’&gt;, {‘a’: [10, 4, 2, 8, 6, 1, 8, 8, 8, 7],
-#                              ‘b’: [1, 3, 1, 1, 0, 3, 9, 3, 6, 9],
-#                              ‘c’: [0, 3, 10, 9, 0, 3, 0, 10, 3, 4]})</p>
-</dd>
-</dl>
+<dd><p>Return a <code class="docutils literal notranslate"><span class="pre">defaultdict(list)</span></code>, optionally pre-seeded with empty lists.</p>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">listed_dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;a&#39;: [10, 1, 0, 4, 3, 3, 2, 1, 10, 8]})</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">listed_dict</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;a&#39;: [10, 4, 2, 8, 6, 1, 8, 8, 8, 7],</span>
+<span class="go">                             &#39;b&#39;: [1, 3, 1, 1, 0, 3, 9, 3, 6, 9],</span>
+<span class="go">                             &#39;c&#39;: [0, 3, 10, 9, 0, 3, 0, 10, 3, 4]})</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 <dl class="py function">

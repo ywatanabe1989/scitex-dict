@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# Time-stamp: "2025-06-02 15:25:00 (ywatanabe)"
-# File: ./scitex_repo/tests/scitex/dict/test__pop_keys.py
-
 """Tests for pop_keys function."""
 
 import pytest
@@ -9,215 +6,238 @@ import pytest
 from scitex_dict import pop_keys
 
 
-def test_pop_keys_basic():
-    """Test basic key removal."""
+def test_pop_keys_removes_specified_keys_from_basic_list():
+    # Arrange
     keys_list = ["a", "b", "c", "d", "e"]
     keys_to_pop = ["b", "d"]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == ["a", "c", "e"]
 
-    # Original list should remain unchanged
+
+def test_pop_keys_does_not_mutate_input_list():
+    # Arrange
+    keys_list = ["a", "b", "c", "d", "e"]
+    keys_to_pop = ["b", "d"]
+
+    # Act
+    pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert keys_list == ["a", "b", "c", "d", "e"]
 
 
-def test_pop_keys_empty_list():
-    """Test with empty keys list."""
+def test_pop_keys_with_empty_input_list_returns_empty_result():
+    # Arrange
     keys_list = []
     keys_to_pop = ["a", "b"]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == []
 
 
-def test_pop_keys_empty_pop_list():
-    """Test with empty keys to pop."""
+def test_pop_keys_with_empty_pop_list_returns_input_unchanged():
+    # Arrange
     keys_list = ["a", "b", "c"]
     keys_to_pop = []
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == ["a", "b", "c"]
 
 
-def test_pop_keys_none_match():
-    """Test when no keys match."""
+def test_pop_keys_when_no_keys_match_returns_input_unchanged():
+    # Arrange
     keys_list = ["a", "b", "c"]
     keys_to_pop = ["x", "y", "z"]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == ["a", "b", "c"]
 
 
-def test_pop_keys_all_match():
-    """Test when all keys should be popped."""
+def test_pop_keys_when_all_keys_match_returns_empty_list():
+    # Arrange
     keys_list = ["a", "b", "c"]
     keys_to_pop = ["a", "b", "c"]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == []
 
 
-def test_pop_keys_duplicates_in_list():
-    """Test with duplicate keys in the original list."""
+def test_pop_keys_removes_all_duplicates_in_input_list():
+    # Arrange
     keys_list = ["a", "b", "a", "c", "b", "d"]
     keys_to_pop = ["a", "b"]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == ["c", "d"]
 
 
-def test_pop_keys_duplicates_in_pop_list():
-    """Test with duplicate keys in the pop list."""
+def test_pop_keys_with_duplicate_keys_in_pop_list_works_correctly():
+    # Arrange
     keys_list = ["a", "b", "c", "d"]
     keys_to_pop = ["b", "b", "d", "d"]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == ["a", "c"]
 
 
-def test_pop_keys_mixed_types():
-    """Test with mixed data types."""
+def test_pop_keys_with_mixed_types_preserves_remaining_elements():
+    # Arrange
     keys_list = ["a", 1, "b", 2, "c", 3.14]
     keys_to_pop = [1, "b"]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
-    # Note: numpy converts all to strings when mixed types
-    assert len(result) == 4
-    assert str(result[0]) == "a"
-    assert str(result[1]) == "2"
-    assert str(result[2]) == "c"
-    assert str(result[3]) == "3.14"
+
+    # Assert
+    assert result == ["a", 2, "c", 3.14]
 
 
-def test_pop_keys_numeric_keys():
-    """Test with numeric keys."""
+def test_pop_keys_with_numeric_keys_returns_correct_subset():
+    # Arrange
     keys_list = [1, 2, 3, 4, 5]
     keys_to_pop = [2, 4]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == [1, 3, 5]
 
 
-def test_pop_keys_partial_match():
-    """Test that partial string matches don't count."""
+def test_pop_keys_partial_string_match_does_not_remove_element():
+    # Arrange
     keys_list = ["apple", "app", "application", "apply"]
     keys_to_pop = ["app"]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == ["apple", "application", "apply"]
 
 
-def test_pop_keys_case_sensitive():
-    """Test that matching is case sensitive."""
+def test_pop_keys_matching_is_case_sensitive():
+    # Arrange
     keys_list = ["Apple", "apple", "APPLE", "aPpLe"]
     keys_to_pop = ["apple"]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == ["Apple", "APPLE", "aPpLe"]
 
 
-def test_pop_keys_none_values():
-    """Test with None values."""
+def test_pop_keys_removes_all_none_occurrences():
+    # Arrange
     keys_list = ["a", None, "b", None, "c"]
     keys_to_pop = [None]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == ["a", "b", "c"]
 
 
-def test_pop_keys_boolean_values():
-    """Test with boolean values."""
+def test_pop_keys_boolean_pop_also_matches_integer_equivalents():
+    # Arrange
+    # Note: In Python, True == 1 and False == 0
     keys_list = [True, False, "true", "false", 1, 0]
     keys_to_pop = [True, False]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
-    # Note: In Python, True == 1 and False == 0
+
+    # Assert
     assert result == ["true", "false"]
 
 
-def test_pop_keys_complex_example():
-    """Test complex example from docstring."""
+def test_pop_keys_docstring_example_returns_expected_subset():
+    # Arrange
     keys_list = ["a", "b", "c", "d", "e", "bde"]
     keys_to_pop = ["b", "d"]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == ["a", "c", "e", "bde"]
 
-    # Verify 'bde' is not removed despite containing 'b' and 'd'
-    assert "bde" in result
 
-
-def test_pop_keys_preserve_order():
-    """Test that order is preserved."""
+def test_pop_keys_preserves_relative_order_of_kept_elements():
+    # Arrange
     keys_list = ["z", "a", "y", "b", "x", "c"]
     keys_to_pop = ["y", "x"]
 
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == ["z", "a", "b", "c"]
 
 
-def test_pop_keys_with_tuples():
-    """Test with tuple keys."""
+def test_pop_keys_with_tuple_elements_removes_matching_tuples():
+    # Arrange
     keys_list = [("a", 1), ("b", 2), ("c", 3), ("d", 4)]
     keys_to_pop = [("b", 2), ("d", 4)]
+
+    # Act
     result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
     assert result == [("a", 1), ("c", 3)]
 
 
-def test_pop_keys_single_element():
-    """Test with single element lists."""
+def test_pop_keys_single_element_when_popped_returns_empty():
+    # Arrange
     keys_list = ["only"]
+    keys_to_pop = ["only"]
 
-    # Pop the only element
-    result1 = pop_keys(keys_list, ["only"])
-    assert result1 == []
+    # Act
+    result = pop_keys(keys_list, keys_to_pop)
 
-    # Don't pop the only element
-    result2 = pop_keys(keys_list, ["other"])
-    assert result2 == ["only"]
+    # Assert
+    assert result == []
+
+
+def test_pop_keys_single_element_when_not_popped_returns_unchanged():
+    # Arrange
+    keys_list = ["only"]
+    keys_to_pop = ["other"]
+
+    # Act
+    result = pop_keys(keys_list, keys_to_pop)
+
+    # Assert
+    assert result == ["only"]
 
 
 if __name__ == "__main__":
     import os
 
-    import pytest
-
     pytest.main([os.path.abspath(__file__)])
 
-# --------------------------------------------------------------------------------
-# Start of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/dict/_pop_keys.py
-# --------------------------------------------------------------------------------
-# #!/usr/bin/env python3
-# # Timestamp: "2025-11-10 22:40:16 (ywatanabe)"
-#
-#
-# def pop_keys(keys_list, keys_to_pop):
-#     """Remove specified keys from a list of keys.
-#
-#     Parameters
-#     ----------
-#     keys_list : list
-#         The original list of keys.
-#     keys_to_pop : list
-#         The list of keys to remove from keys_list.
-#
-#     Returns
-#     -------
-#     list
-#         A new list with the specified keys removed.
-#
-#     Example
-#     -------
-#     >>> keys_list = ['a', 'b', 'c', 'd', 'e', 'bde']
-#     >>> keys_to_pop = ['b', 'd']
-#     >>> pop_keys(keys_list, keys_to_pop)
-#     ['a', 'c', 'e', 'bde']
-#     """
-#     return [k for k in keys_list if k not in keys_to_pop]
-#
-#
-# # EOF
-
-# --------------------------------------------------------------------------------
-# End of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/dict/_pop_keys.py
-# --------------------------------------------------------------------------------
+# EOF

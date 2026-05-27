@@ -47,13 +47,12 @@ Handy for logging structured config to CSV / TensorBoard / wandb.
 ```python
 from scitex_dict import pop_keys, replace, to_str
 
-cfg = {"a": 1, "b": 2, "c": 3}
-pop_keys(cfg, ["b", "c"])              # cfg is now {"a": 1}
+pop_keys(["a", "b", "c", "d"], ["b", "d"])   # ["a", "c"]
 
-replace({"msg": "hello $name"}, {"$name": "world"})
-# {"msg": "hello world"}
+replace("hello $name", {"$name": "world"})
+# "hello world"
 
-to_str({"a": 1, "b": 2})               # pretty-printed multi-line string
+to_str({"a": 1, "b": 2})                     # "a-1_b-2"
 ```
 
 ## Next

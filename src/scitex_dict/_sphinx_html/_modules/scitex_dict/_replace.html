@@ -126,6 +126,27 @@
 <div class="viewcode-block" id="replace">
 <a class="viewcode-back" href="../../api/scitex_dict.html#scitex_dict.replace">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">replace</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform multiple string substitutions from a mapping dictionary.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    string : str</span>
+<span class="sd">        Input string to transform.</span>
+<span class="sd">    dict : dict</span>
+<span class="sd">        Mapping of substring → replacement. Each key found in *string*</span>
+<span class="sd">        is replaced with its corresponding value, applied in iteration</span>
+<span class="sd">        order.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        String with all substitutions applied.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; replace(&quot;hello $name&quot;, {&quot;$name&quot;: &quot;world&quot;})</span>
+<span class="sd">    &#39;hello world&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">string</span></div>

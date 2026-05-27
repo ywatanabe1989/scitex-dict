@@ -38,10 +38,11 @@ d.a.b = 2           # mutation works through attribute
 Merge multiple dicts. Raises `ValueError` on overlapping keys. Use
 when conflicts indicate a bug rather than a deliberate override.
 
-## `flatten(d, sep=".") -> dict`
+## `flatten(d, sep="_") -> dict`
 
 Recursively flatten a nested dict into a single level. Keys joined by
-`sep`. Reverse via custom unflatten if needed.
+``sep`` (default ``"_"``). Lists are indexed numerically. Reverse via
+custom unflatten if needed.
 
 ## `listed_dict(items) -> dict[K, list[V]]`
 
@@ -52,19 +53,20 @@ listed_dict([("a", 1), ("a", 2), ("b", 3)])
 # {"a": [1, 2], "b": [3]}
 ```
 
-## `pop_keys(d, keys) -> list`
+## `pop_keys(items, keys) -> list`
 
-In-place: pop multiple keys at once and return their values.
+Return a new list with any occurrences of the given keys removed.
+Does not mutate the input collection.
 
-## `replace(d, mapping) -> dict`
+## `replace(string, mapping) -> str`
 
-Walk a dict (and nested dicts/lists) and substitute string fragments
-according to `mapping`. Useful for templated configs.
+Perform sequential string substitutions according to ``mapping``.
+Useful for templated strings.
 
-## `to_str(d, indent=2) -> str`
+## `to_str(d, delimiter="_") -> str`
 
-Pretty-print a dict. Uses ASCII-friendly formatting suitable for log
-output.
+Render a dict as a ``delimiter``-separated string of ``key-value`` pairs.
+Default delimiter is ``"_"``.
 
 ## Two import paths
 

@@ -1,7 +1,7 @@
 ---
 description: |
   [TOPIC] scitex-dict Installation
-  [DETAILS] pip install scitex-dict (pure Python, no required deps); smoke verify with import + DotDict.
+  [DETAILS] pip install scitex-dict (pure Python, requires scitex-dev>=0.11.7 for entry-point registration); smoke verify with import + DotDict.
 tags: [scitex-dict-installation]
 ---
 
@@ -13,7 +13,8 @@ tags: [scitex-dict-installation]
 pip install scitex-dict
 ```
 
-Pure-Python; no required runtime dependencies.
+Pure-Python (stdlib-only); requires ``scitex-dev>=0.11.7`` for Skills / Docs entry-point
+registration (the ``[all]`` extra is empty — no graceful-degradation deps exist).
 
 ## Verify
 

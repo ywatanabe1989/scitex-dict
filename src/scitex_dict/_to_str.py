@@ -12,9 +12,8 @@ def to_str(dictionary, delimiter="_"):
 
     Example
     -------
-    input_dict = {'a': 1, 'b': 2, 'c': 3}
-    result = dict2str(input_dict)
-    print(result)  # Output: a-1_b-2_c-3
+    >>> to_str({"a": 1, "b": 2, "c": 3})
+    'a-1_b-2_c-3'
 
     Parameters
     ----------

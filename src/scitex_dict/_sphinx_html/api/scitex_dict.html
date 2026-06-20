@@ -379,7 +379,31 @@ Includes both standard methods/attributes and the keys stored in _data.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="scitex_dict.replace">
 <span class="sig-prename descclassname"><span class="pre">scitex_dict.</span></span><span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_dict/_replace.html#replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_dict.replace" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Perform multiple string substitutions from a mapping dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Input string to transform.</p></li>
+<li><p><strong>dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Mapping of substring → replacement. Each key found in <em>string</em>
+is replaced with its corresponding value, applied in iteration
+order.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String with all substitutions applied.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;hello $name&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;$name&quot;</span><span class="p">:</span> <span class="s2">&quot;world&quot;</span><span class="p">})</span>
+<span class="go">&#39;hello world&#39;</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="scitex_dict.safe_merge">
@@ -416,9 +440,10 @@ Includes both standard methods/attributes and the keys stored in _data.</p>
 <dd><p>Convert a dictionary to a string representation.</p>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<p>input_dict = {‘a’: 1, ‘b’: 2, ‘c’: 3}
-result = dict2str(input_dict)
-print(result)  # Output: a-1_b-2_c-3</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">to_str</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
+<span class="go">&#39;a-1_b-2_c-3&#39;</span>
+</pre></div>
+</div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -439,7 +464,32 @@ print(result)  # Output: a-1_b-2_c-3</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="scitex_dict.flatten">
 <span class="sig-prename descclassname"><span class="pre">scitex_dict.</span></span><span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nested_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_dict/_flatten.html#flatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_dict.flatten" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Recursively flatten a nested dict into a single-level dict.</p>
+<p>Keys are joined with <code class="docutils literal notranslate"><span class="pre">sep</span></code> (default <code class="docutils literal notranslate"><span class="pre">&quot;_&quot;</span></code>). List / tuple values
+are indexed numerically (<code class="docutils literal notranslate"><span class="pre">key_0</span></code>, <code class="docutils literal notranslate"><span class="pre">key_1</span></code>, …).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nested_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – The (possibly nested) dictionary to flatten.</p></li>
+<li><p><strong>parent_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Internal — used during recursion to accumulate the key prefix.</p></li>
+<li><p><strong>sep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Separator between parent and child keys (default <code class="docutils literal notranslate"><span class="pre">&quot;_&quot;</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Single-level dictionary with joined keys.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flatten</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}})</span>
+<span class="go">{&#39;a_b&#39;: 1, &#39;a_c&#39;: 2}</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
 
 </section>
 

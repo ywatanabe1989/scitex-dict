@@ -126,6 +126,30 @@
 <div class="viewcode-block" id="flatten">
 <a class="viewcode-back" href="../../api/scitex_dict.html#scitex_dict.flatten">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">flatten</span><span class="p">(</span><span class="n">nested_dict</span><span class="p">,</span> <span class="n">parent_key</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;_&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recursively flatten a nested dict into a single-level dict.</span>
+
+<span class="sd">    Keys are joined with ``sep`` (default ``&quot;_&quot;``). List / tuple values</span>
+<span class="sd">    are indexed numerically (``key_0``, ``key_1``, …).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nested_dict : dict</span>
+<span class="sd">        The (possibly nested) dictionary to flatten.</span>
+<span class="sd">    parent_key : str, optional</span>
+<span class="sd">        Internal — used during recursion to accumulate the key prefix.</span>
+<span class="sd">    sep : str, optional</span>
+<span class="sd">        Separator between parent and child keys (default ``&quot;_&quot;``).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Single-level dictionary with joined keys.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; flatten({&quot;a&quot;: {&quot;b&quot;: 1, &quot;c&quot;: 2}})</span>
+<span class="sd">    {&#39;a_b&#39;: 1, &#39;a_c&#39;: 2}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">nested_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">new_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parent_key</span><span class="si">}{</span><span class="n">sep</span><span class="si">}{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">parent_key</span> <span class="k">else</span> <span class="n">key</span>

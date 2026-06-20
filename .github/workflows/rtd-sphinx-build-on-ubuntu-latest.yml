@@ -26,10 +26,8 @@ jobs:
           python-version: "3.11"
 
       - name: Install package + docs deps
-        # The Sphinx toolchain was collapsed from a [docs] extra into [dev]
-        # (docs are built by maintainers, not consumers — see pyproject.toml).
-        # Installing the no-longer-existent [docs] extra left sphinx-build
-        # uninstalled and broke this workflow.
+        # scitex-dict collapses the Sphinx toolchain into [dev] (no
+        # separate [docs] extra), so install [dev] here.
         run: pip install -e ".[dev]"
 
       - name: Build Sphinx HTML (warnings fail PRs only)

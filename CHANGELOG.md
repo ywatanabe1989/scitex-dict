@@ -7,6 +7,16 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.8] — 2026-06-20
+
+- CI: reconcile workflow set to the canonical scitex-app-compliant suite
+  (import-smoke, tests matrix, docs, quality audit, release, newb); drop
+  the non-compliant ``ci.yml`` / ``release.yml`` that drifted in.
+- CI(tests): isolate the Codecov uploader per matrix leg via a per-job
+  ``HOME`` under ``runner.temp`` and set ``disable_safe_directory: true``.
+- Chore: back-merge ``main`` into ``develop`` (release-meta + PS-168
+  audit exception) ahead of the patch release.
+
 ## [0.1.7] — 2026-05-09
 
 - Fix CI: repair docs + quality workflows after upstream template changes.

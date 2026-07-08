@@ -11,3 +11,4 @@ build/
 
 # Python virtualenv
 .venv/
+.worktrees/

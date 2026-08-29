@@ -12,3 +12,15 @@ build/
 # Python virtualenv
 .venv/
 /.worktrees/
+
+# sphinx-build's incremental-build scratch. The served bundle
+# src/<pkg>/_sphinx_html/ itself stays tracked; .doctrees is not part of it.
+src/*/_sphinx_html/.doctrees/
+
+# coverage.py data files. These are on-disk databases in the storage
+# format this repo just stopped using; leaving them untracked keeps them
+# from being committed the way another repo accumulated 55 of them.
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/

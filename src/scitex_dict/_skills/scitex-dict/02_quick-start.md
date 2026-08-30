@@ -12,8 +12,8 @@ tags: [scitex-dict-quick-start]
 ```python
 from scitex_dict import DotDict
 
-cfg = DotDict({"db": {"url": "sqlite://", "pool": 4}})
-print(cfg.db.url)            # "sqlite://"
+cfg = DotDict({"db": {"url": "postgresql://localhost/dev", "pool": 4}})
+print(cfg.db.url)            # "postgresql://localhost/dev"
 cfg.db.pool = 8              # mutate via attribute
 ```
 

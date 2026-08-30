@@ -51,7 +51,11 @@ dependencies = [
 # No graceful-degradation features — package is pure-stdlib. The key
 # is kept empty for ecosystem-policy symmetry (the audit expects
 # exactly default + [all] + [dev]).
-all = []
+all = [
+    # PS-221 closure: every public extra is a subset of `all`, so
+    # `pip install scitex-dict[all]` pulls everything public.
+    "scitex-dict[dev]",
+]
 
 dev = [
     "pytest>=7.0",

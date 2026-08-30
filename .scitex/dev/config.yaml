@@ -8,3 +8,47 @@ audit:
       # Codecov ALWAYS reads `codecov.yml` from repo root — non-negotiable
       # location per codecov.io docs. Whitelist it from PS-103.
       - codecov.yml
+
+  exemptions:
+    # PS-231 flags a leaf workflow named like an org reusable that does not
+    # call it. This is the ONE case PS-231's own BLOCKER 2 names as
+    # unconvertible, and the two facts below were measured in this repo, not
+    # assumed:
+    #
+    #   1. THE LEAF PUBLISHES; THE ORG REUSABLE ONLY BUILDS. The `docs` job
+    #      copies `docs/sphinx/_build/html` into `src/scitex_dict/_sphinx_html`
+    #      and COMMITS it on a develop push (95 files are tracked there today).
+    #      `pyproject.toml` sets `[tool.hatch.build.targets.wheel] packages =
+    #      ["src/scitex_dict"]`, so that bundle ships INSIDE the wheel. The org
+    #      reusable `rtd-sphinx-build.yml` builds Sphinx and stops — it has no
+    #      vendor-back or commit step and no input that would add one. A bare
+    #      `uses:` caller therefore keeps CI green while the documentation
+    #      shipped to users silently freezes at the last hand-refreshed commit,
+    #      which is the exact failure mode PS-231's BLOCKER 2 describes.
+    #
+    #   2. THE LEAF'S PR GATE IS STRICTER. On `pull_request` this job runs
+    #      `sphinx-build -W` (warnings are errors); on push it does not. The org
+    #      reusable never passes `-W` and exposes no input for it, so converting
+    #      would also drop a gate this package currently enforces.
+    #
+    # PS-231's BLOCKER 1 was checked and does NOT apply: `gh api
+    # repos/scitex-ai/scitex-dict/branches/{develop,main}/protection` requires
+    # only the three `pytest-matrix / pytest-matrix-on-ubuntu-py3.1x` contexts
+    # on both protected branches. This job's `sphinx` context is not required,
+    # so a conversion would not have stranded branch protection.
+    #
+    # SCOPE: this excuses ONE file. `cla.yml`, `import-smoke-*`,
+    # `pytest-matrix-*` and `scitex-dict-quality-audit-*` all call the org
+    # reusables and are deliberately NOT exempted here. Revisit the moment the
+    # org reusable grows a publish step or a `strict`/`-W` input — at that point
+    # this file becomes convertible and the exemption must be deleted.
+    PS-231:
+      - path: .github/workflows/rtd-sphinx-build-on-ubuntu-latest.yml
+        line: 0
+        reason: >-
+          Vendors its Sphinx output back into src/scitex_dict/_sphinx_html and
+          commits it, and that bundle ships in the wheel (hatch packages
+          src/scitex_dict wholesale); the org rtd-sphinx-build reusable is
+          build-only, so a caller would keep CI green while the shipped docs
+          froze. It also runs `sphinx-build -W` on pull_request, a gate the org
+          build does not offer. PS-231 BLOCKER 2, measured in this repo.
